@@ -83,7 +83,7 @@ $PagerHTMl = $data['pager'];
                               <a href="detail-food.php?alias=<?=$f->url?>&id=<?=$f->id?>" class="swin-btn btn-link">
                                 <i class="icons fa fa-link"></i>
                               </a>
-                            <a href="javascript:void(0)" class="swin-btn btn-add-to-card"><i class="fa fa-shopping-basket"></i></a></div>
+                            <a data-id="<?=$f->id?>" class="swin-btn btn-add-to-card"><i class="fa fa-shopping-basket"></i></a></div>
                           </div>
                           <div class="block-content">
                             <h5 class="title"><a href="detail-food.php?alias=<?=$f->url?>&id=<?=$f->id?>"><?=$f->name?></a></h5>

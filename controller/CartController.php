@@ -5,6 +5,8 @@
     class CartController {
         public function addToCart(){
             $id= $_POST['id'];
+            $qty = ($_POST['soluong']<=0) ? 1 :  (int)$_POST['soluong'];
+
             $oldcart = null;
             $model = new CartModel();
             $item = $model->getDetail($id);
@@ -13,9 +15,14 @@
             }
 
             $cart = new Cart($oldcart);
-            $cart->add($item,$qty =1 );
+            $cart->add($item,$qty);
             $_SESSION['cart'] = $cart;
+            
+            echo "<pre>";
             print_r($cart);
+            echo "</pre>";
+
+            // echo $item->name;
         }
     }
 ?>

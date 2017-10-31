@@ -42,9 +42,13 @@
               <div class="product-quanlity">
                 <form action="#">
                   <div class="input-group">
-                    <input type="text" name="quanlity" placeholder="" value="1" class="form-control"><a href="javascript:void(0)" class="quanlity-plus"><i class="fa fa-plus"></i></a><a href="javascript:void(0)" class="quanlity-minus"><i class="fa fa-minus"></i></a>
+                    <input type="number" min="0" id="txtQuantity" name="quanlity" placeholder="" value="1" class="form-control quantitySP">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                      <i class="fa fa-minus"></i>
+                      </a>
                   </div>
-                  <div class="add-to-cart"><a href="javascript:void(0)" class="swin-btn"> <span>Add To Cart</span></a></div>
+                  <div class="add-to-cart"><a class="swin-btn" data-id="<?=$food->id?>"> <span>Add To Cart</span></a></div>
                 </form>
               </div>
               
@@ -68,7 +72,7 @@
                 <div class="group-btn"><a href="detail-food.php?alias=<?=$same->url?>&id=<?=$same->id?>" class="swin-btn btn-link"><i class="icons fa fa-link"></i></a><a href="javascript:void(0)" class="swin-btn btn-add-to-card" data-id="<?=$same->id?>"><i class="fa fa-shopping-basket"></i></a></div>
               </div>
               <div class="block-content">
-                <h5 class="title"><a href="detail-food.php?alias=<?=$same->url?>&id=<?=$same->id?>"><?=$same->name?></a></h5>
+                <h5 class="title"><a class="spname" href="detail-food.php?alias=<?=$same->url?>&id=<?=$same->id?>"><?=$same->name?></a></h5>
               </div>
             </div>
           <?php } ?>
@@ -82,19 +86,4 @@
   </div>
 </div>
 
-<script>
-$(document).ready(function(){
-  $(".btn-add-to-card").click(function(){
-    var id1= $(this).attr('data-id');
-    $.ajax({
-      url:"Cart.php",
-      method:"POST",
-      data:{
-        id : id1
-      }
-      }).done(function(data){
-        alert(data);
-      });
-  });
-});
-</script>
+

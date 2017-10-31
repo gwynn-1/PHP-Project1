@@ -286,6 +286,29 @@
           </div>
         </div>
       </footer>
+
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+              <p>Đặt hàng thành công</p>
+              <p>Đã thêm <span id="tensp"></span> vào giỏ hàng</p>
+              <a href="checkout.php">Xem giỏ hàng</a>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     <a id="totop" href="#" class="animated"><i class="fa fa-angle-double-up"></i></a>
     </div>
     <div id="loader" data-opening="m -5,-5 0,70 90,0 0,-70 z m 5,35 c 0,0 15,20 40,0 25,-20 40,0 40,0 l 0,0 C 80,30 65,10 40,30 15,50 0,30 0,30 z" class="pageload-overlay">
@@ -362,7 +385,52 @@
     ga('send', 'pageview');
     
   </script>
+
+<script>
+
+function ajaxCart(idSP,qty = 1){
+  $.ajax({
+      url:"Cart.php",
+      method:"POST",
+      data:{
+        id : idSP,
+        soluong : qty
+      }
+      }).done(function(data){
+        $("#tensp").html("<b>"+data+"</b>");
+        $("#myModal").modal("show");
+      });
+}
+
+$(document).ready(function(){
+  $(".btn-add-to-card").click(function(){
+    var id1= $(this).attr('data-id');
+    ajaxCart(id1);
+  });
+
+  $(".add-to-cart .swin-btn").click(function(){
+    var id_sp = $(this).attr('data-id');
+    var qty = $('.quantitySP').val().toString();
+    ajaxCart(id_sp,qty);
+  });
+
+  $("#txtQuantity").on("input",function(){
+    if(parseInt($(this).val()) > 20){
+      $(".add-to-cart .swin-btn").off("click");
+    }
+    else{
+      $(".add-to-cart .swin-btn").on("click",function(){
+        var id_sp = $(this).attr('data-id');
+        var qty = $('.quantitySP').val().toString();
+        ajaxCart(id_sp,qty);
+      });
+    }
+  });
+});
+</script>
 </body>
+
+
 
 <!-- Mirrored from swin-themes.com/html/fooday/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Sep 2017 09:12:42 GMT -->
 </html>
