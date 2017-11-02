@@ -42,13 +42,9 @@
               <div class="product-quanlity">
                 <form action="#">
                   <div class="input-group">
-                    <input type="number" min="0" id="txtQuantity" name="quanlity" placeholder="" value="1" class="form-control quantitySP">
-                        <i class="fa fa-plus"></i>
-                      </a>
-                      <i class="fa fa-minus"></i>
-                      </a>
+                    <input type="number" min="0" id="txtQuantity" name="quanlity" placeholder="" value="1" class="form-control">
                   </div>
-                  <div class="add-to-cart"><a class="swin-btn" data-id="<?=$food->id?>"> <span>Add To Cart</span></a></div>
+                  <div class="add-to-cart" data-id="<?=$food->id?>"><a class="swin-btn" > <span>Add To Cart</span></a></div>
                 </form>
               </div>
               

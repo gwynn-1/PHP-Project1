@@ -1,3 +1,7 @@
+<?php
+  ob_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 <!-- Mirrored from swin-themes.com/html/fooday/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Sep 2017 09:09:44 GMT -->
@@ -67,7 +71,7 @@
                     </ul>
                   </div>
                   <div class="item">
-                    <div class="wg-social"><a href="checkout.html"><i class="fa fa-shopping-cart fa-2x"></i><span>Shopping Cart</span></a></div>
+                    <div class="wg-social"><a href="checkout.php"><i class="fa fa-shopping-cart fa-2x"></i><span>Shopping Cart</span></a></div>
                   </div>
                 </div>
               </div>
@@ -77,7 +81,7 @@
             <div class="container">
               <div class="open-offcanvas">&#9776;</div>
               
-              <div class="header-logo"><a href="index.html" class="logo logo-static"><img src="public/assets/images/logo-white.png" alt="fooday" class="logo-img"></a><a href="index.html" class="logo logo-fixed"><img src="public/assets/images/logo.png" alt="fooday" class="logo-img"></a></div>
+              <div class="header-logo"><a href="index.php" class="logo logo-static"><img src="public/assets/images/logo-white.png" alt="fooday" class="logo-img"></a><a href="index.html" class="logo logo-fixed"><img src="public/assets/images/logo.png" alt="fooday" class="logo-img"></a></div>
               <script src="public/assets/vendors/jquery-1.10.2.min.js"></script>
               <script>
               $(function() {
@@ -408,22 +412,18 @@ $(document).ready(function(){
     ajaxCart(id1);
   });
 
-  $(".add-to-cart .swin-btn").click(function(){
+  $(".add-to-cart").click(function(){
     var id_sp = $(this).attr('data-id');
-    var qty = $('.quantitySP').val().toString();
+    var qty = $("#txtQuantity").val().toString();
     ajaxCart(id_sp,qty);
   });
 
   $("#txtQuantity").on("input",function(){
     if(parseInt($(this).val()) > 20){
-      $(".add-to-cart .swin-btn").off("click");
+        $(".add-to-cart").hide(500);
     }
     else{
-      $(".add-to-cart .swin-btn").on("click",function(){
-        var id_sp = $(this).attr('data-id');
-        var qty = $('.quantitySP').val().toString();
-        ajaxCart(id_sp,qty);
-      });
+        $(".add-to-cart").show(500);
     }
   });
 });

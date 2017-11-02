@@ -11,7 +11,11 @@
           <div class="page-content-wrapper">
             <section class="section-reservation-form padding-top-100 padding-bottom-100">
               <div class="container">
-                <div class="section-content">
+
+              <?php
+                if($data!=null){
+              ?>
+                <div class="section-content cart-detail">
                   <div class="swin-sc swin-sc-title style-2">
                     <h3 class="title"><span>Chi tiết giỏ hàng</span></h3>
                   </div>
@@ -28,46 +32,35 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
+                          <?php foreach($data->items as $key=>$sp):?>
+                            <tr id="sanpham-<?=$key?>">
                               <td>
-                                <img src="public/assets/images/product/product-2b.jpg" width="250px">
-                                <p><br><b>Uncle Herschel's Favorite</b></p>
+                                <img src="public/assets/images/hinh_mon_an/<?= $sp['item']->image?>" width="250px">
+                                <p><br><b><?=$sp['item']->name?></b></p>
                               </td>
-                              <td>$25</td>
-                              <td>
-                              <select name="product-qty" id="product-qty" class="form-control" width="50">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                              </select>
-                              </td>
-                              <td>$25</td>
-                              <td><a href="#" class="remove" title="Remove this item"><i class="fa fa-trash-o fa-2x"></i></a></td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <img src="public/assets/images/product/product-2b.jpg" width="250px">
-                                <p><br><b>Uncle Herschel's Favorite</b></p>
-                              </td>
-                              <td>$25</td>
+                              <td><?=$sp['item']->price?> vnd</td>
                               <td>
                               <select name="product-qty" id="product-qty" class="form-control" width="50">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
+                                <?php for($i=1;$i<=10;$i++):?>
+                                <option value="<?=$i?>" <?=($sp['qty']==$i) ? 'selected':'' ?> ><?=$i?></option>
+                                <?php endfor?>
                               </select>
                               </td>
-                              <td>$25</td>
-                              <td><a href="#" class="remove" title="Remove this item"><i class="fa fa-trash-o fa-2x"></i></a></td>
+                              <td><b style="color:blue"><?=number_format($sp['price'])?> vnd</b></td>
+                              <td><a href="javascrip:void(0)" class="remove" title="Remove this item" data-id="<?=$key?>"><i class="fa fa-trash-o fa-2x"></i></a></td>
                             </tr>
+                          <?php endforeach ?>
+                          <tr>
+                            <td colspan="3"></td>
+                            <td><b style="color:red" class="TotalPrice"><?=$data->totalPrice?> vnd</b></td>
+                            <td></td>
+                          </tr>
                           </tbody>
                       </table>     
                      
                     </div>
+
+
                     
                     <div class="swin-sc swin-sc-contact-form light mtl style-full">
                       <div class="swin-sc swin-sc-title style-2">
@@ -113,6 +106,13 @@
                     </div>
                     </div>
                 </div>
+                <?php
+                  }
+                  else{
+                    echo "<h3 class='title' style='text-align:center'>Bạn chưa mua sản phẩm nào</h3>";
+                    header("refresh:10;url=index.php");
+                  }
+                ?>
               </div>
             </section>
             <section data-bottom-top="background-position: 50% 100px;" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" class="section-reservation-service padding-top-100 padding-bottom-100">
@@ -158,3 +158,28 @@
             </section>
           </div>
         </div>
+        <script>
+          $(document).ready(function(){
+            $('.remove').click(function(){
+              id = $(this).attr('data-id');
+              action = "delete";
+              $.ajax({
+                url:'Cart.php',
+                data:{
+                  id : id, action : action
+                },
+                type : "POST",
+                success:function(data){
+                  if(parseInt(data)==0){
+                    $('.cart-detail').html("<h3 class='title' style='text-align:center'>Giỏ hàng rỗng</h3>");
+                    setTimeout(function(){
+                      window.location.href = "index.php"
+                    },10000);
+                  }
+                  $(".TotalPrice").html(data + "vnd");
+                  $("#sanpham-"+id).hide(500);
+                } 
+              });
+            })
+          });
+        </script>
