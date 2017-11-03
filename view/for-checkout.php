@@ -40,13 +40,13 @@
                               </td>
                               <td><?=$sp['item']->price?> vnd</td>
                               <td>
-                              <select name="product-qty" id="product-qty" class="form-control" width="50">
+                              <select name="product-qty" class="form-control product-qty" width="50" data-id="<?=$key?>">
                                 <?php for($i=1;$i<=10;$i++):?>
                                 <option value="<?=$i?>" <?=($sp['qty']==$i) ? 'selected':'' ?> ><?=$i?></option>
                                 <?php endfor?>
                               </select>
                               </td>
-                              <td><b style="color:blue"><?=number_format($sp['price'])?> vnd</b></td>
+                              <td><b style="color:blue" id="price-<?=$key?>"><?=number_format($sp['price'])?> vnd</b></td>
                               <td><a href="javascrip:void(0)" class="remove" title="Remove this item" data-id="<?=$key?>"><i class="fa fa-trash-o fa-2x"></i></a></td>
                             </tr>
                           <?php endforeach ?>
@@ -59,8 +59,6 @@
                       </table>     
                      
                     </div>
-
-
                     
                     <div class="swin-sc swin-sc-contact-form light mtl style-full">
                       <div class="swin-sc swin-sc-title style-2">
@@ -178,6 +176,22 @@
                   }
                   $(".TotalPrice").html(data + "vnd");
                   $("#sanpham-"+id).hide(500);
+                } 
+              });
+              });
+              $(".product-qty").change(function(){
+                var id= $(this).attr("data-id");
+                var qty = $(this).val();
+                var action = "update";
+                $.ajax({
+                url:'Cart.php',
+                data:{
+                  id : id, action : action, qty:qty
+                },
+                type : "POST", dataType:"json",
+                success:function(data){
+                  $("#price-"+id).html(data.dongiasanpham + "vnd");
+                  $(".TotalPrice").html(data.tongtien+"vnd");
                 } 
               });
             })

@@ -38,5 +38,27 @@
             }else
                 echo number_format($cart->totalPrice);
         }
+
+        public function UpdateCart(){
+            $id= $_POST['id'];
+            $qty = (int)$_POST['qty'];
+
+            $model = new CartModel;
+            $product = $model->getDetail($id);
+
+            $oldcart = null;
+            if(isset($_SESSION['cart'])){
+                $oldcart = $_SESSION['cart'];
+            }
+
+            $cart = new Cart($oldcart);
+            $cart->update($product,$id,$qty);
+            $_SESSION['cart'] = $cart;
+
+            echo json_encode([
+                "dongiasanpham"=>$cart->items[$id]["price"],
+                "tongtien"=>$cart->totalPrice
+            ]);
+        }
     }
 ?>

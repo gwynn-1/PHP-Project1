@@ -10,4 +10,7 @@ if($action == "add")
 elseif($action=="delete"){
     $c->deleteCart();
 }
+else if($action=="update"){
+    $c->UpdateCart();
+}
 ?>
