@@ -73,6 +73,20 @@
                         </div>
                         <div class="form-group">
                           <div class="input-group">
+
+                          <div class="col-sm-2">Giới tính</div>
+                          <div class="col-sm-10">
+                            <label> Nam
+                              <input type="radio" name="gender" id="gender-male" value="nam">
+                            </label>
+                            <label> Nữ
+                              <input type="radio" name="gender" id="gender-female" value="nữ">
+                            </label>
+                          </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
                             <input type="text" placeholder="Email" class="form-control">
                           </div>

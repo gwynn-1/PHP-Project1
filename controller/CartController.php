@@ -1,7 +1,8 @@
 <?php
-    include_once("Cart.php");
-    include_once("model/CartModel.php");
     session_start();
+    // include_once("Cart.php");
+    include_once("model/CartModel.php");
+    
     class CartController {
 
         public function addToCart(){
